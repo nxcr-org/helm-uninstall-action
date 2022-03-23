@@ -1,0 +1,41 @@
+name: Helm Uninstall
+author: Michael Hatch <michaelh@autonomy.com>
+branding:
+  icon: upload-cloud
+  color: orange
+description: helml uninstall releases
+inputs:
+  aws_access_key_id:
+    description: The AWS access key id
+    required: true
+  aws_secret_access_key:
+    description: The AWS secret access key
+    required: true
+  aws_region:
+    description: 'AWS region to use (default: us-west-2)'
+    required: false
+    default: us-west-2
+  cluster_name:
+    description: 'EKS cluster name.'
+    required: true
+  name:
+    description: 'The name of the release to uninstall'
+    required: true
+  namespace:
+    description: 'Kubernetes namespace to use.'
+    required: false
+  timeout:
+    description: 'Timeout for the job.'
+    required: false
+    default: 2m0s
+runs:
+  using: docker
+  image: Dockerfile
+  env:
+    AWS_ACCESS_KEY_ID: ${{ inputs.aws_access_key_id }}
+    AWS_DEFAULT_REGION: ${{ inputs.aws_region }}
+    AWS_SECRET_ACCESS_KEY: ${{ inputs.aws_secret_access_key }}
+    CLUSTER_NAME: ${{ inputs.cluster_name }}
+    DEPLOY_NAMESPACE: ${{ inputs.namespace }}
+    DEPLOY_NAME: ${{ inputs.name }}
+    TIMEOUT: ${{ inputs.timeout }}
