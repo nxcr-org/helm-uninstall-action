@@ -27,7 +27,7 @@ inputs:
   timeout:
     description: 'Timeout for the job.'
     required: false
-    default: 2m0s
+    default: '2m0s'
 runs:
   using: docker
   image: Dockerfile
